@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry"><rect><x>0</x><y>0</y><width>865</width><height>596</height></rect></property>
+  <property name="windowTitle"><string>肌电手环采集程序</string></property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item><layout class="QHBoxLayout" name="horizontalLayout"><item><widget class="QLabel" name="label_2"><property name="text"><string>设备列表：</string></property></widget></item><item><widget class="QTextEdit" name="devices_list"><property name="maximumSize"><size><width>16777215</width><height>325</height></size></property></widget></item></layout></item>
+    <item><layout class="QHBoxLayout" name="horizontalLayout_6"><item><widget class="QPushButton" name="user_info"><property name="text"><string>录入采集信息</string></property></widget></item><item><widget class="QPushButton" name="show_multichannel_window"><property name="text"><string>多窗口显示</string></property></widget></item><item><widget class="QPushButton" name="show_window"><property name="text"><string>单窗口显示</string></property></widget></item></layout></item>
+    <item><widget class="QLabel" name="context_status_label"><property name="text"><string>采集信息：未录入</string></property></widget></item>
+    <item><widget class="QLabel" name="quality_status_label"><property name="text"><string>质量检查：尚未执行</string></property><property name="wordWrap"><bool>true</bool></property></widget></item>
+    <item><layout class="QHBoxLayout" name="horizontalLayout_2"><item><widget class="QPushButton" name="start_recording"><property name="text"><string>开始采集</string></property></widget></item><item><widget class="QPushButton" name="stop_recording"><property name="text"><string>停止采集</string></property></widget></item><item><widget class="QPushButton" name="start_playback"><property name="text"><string>数据回放</string></property></widget></item></layout></item>
+    <item><layout class="QHBoxLayout" name="horizontalLayout_11"><item><widget class="QPushButton" name="search"><property name="text"><string>搜索设备</string></property></widget></item><item><widget class="QComboBox" name="device_combo"/></item><item><widget class="QPushButton" name="pushButton"><property name="text"><string>连接</string></property></widget></item><item><widget class="QPushButton" name="exit"><property name="text"><string>退出</string></property></widget></item></layout></item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar"><widget class="QMenu" name="menu"><property name="title"><string>采集程序</string></property></widget><addaction name="menu"/></widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections>
+  <connection><sender>search</sender><signal>clicked()</signal><receiver>MainWindow</receiver><slot>search_click()</slot><hints/></connection>
+  <connection><sender>exit</sender><signal>clicked()</signal><receiver>MainWindow</receiver><slot>close()</slot><hints/></connection>
+  <connection><sender>pushButton</sender><signal>clicked()</signal><receiver>MainWindow</receiver><slot>connect_semg_click()</slot><hints/></connection>
+  <connection><sender>show_window</sender><signal>clicked()</signal><receiver>MainWindow</receiver><slot>show_window_click()</slot><hints/></connection>
+  <connection><sender>show_multichannel_window</sender><signal>clicked()</signal><receiver>MainWindow</receiver><slot>show_multichannel_window_click()</slot><hints/></connection>
+  <connection><sender>user_info</sender><signal>clicked()</signal><receiver>MainWindow</receiver><slot>user_info_click()</slot><hints/></connection>
+ </connections>
+ <slots><slot>search_click()</slot><slot>connect_semg_click()</slot><slot>show_window_click()</slot><slot>show_multichannel_window_click()</slot><slot>user_info_click()</slot></slots>
+</ui>

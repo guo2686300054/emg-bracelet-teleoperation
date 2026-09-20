@@ -1,0 +1,408 @@
+{
+  "annotation_schema": {
+    "additional_required_fields": [
+      "commanded_phase",
+      "measured_phase",
+      "commanded_speed_hz",
+      "measured_speed_hz",
+      "session_id",
+      "recording_id",
+      "capture_date",
+      "split_assignment",
+      "truth_valid"
+    ],
+    "commanded_vs_measured_rule": "Commanded phase/ROM/speed describe cues only. Measured phase/ROM/speed come only from synchronized calibrated external truth; otherwise they are null. Commanded values must never be copied, aliased, or scored as measured values.",
+    "label_source_examples": [
+      "scripted_cue",
+      "camera_truth",
+      "data_glove_truth",
+      "encoder_truth",
+      "closed_loop_hard_mining_with_external_truth"
+    ],
+    "required_sample_fields": [
+      "action_family",
+      "finger_set",
+      "speed",
+      "commanded_rom_percent",
+      "measured_rom_percent",
+      "forearm_pose",
+      "donning_id",
+      "fatigue_state",
+      "label_source"
+    ]
+  },
+  "assessment_of_original_request": "Directionally correct, with minimum durations rather than caps. Execution also requires replicated split coverage, hold/negative/transition evidence, numeric cadence, commanded/measured separation, truth gates, fatigue limits, and sealing.",
+  "blocks": {
+    "activation_hold": {
+      "commanded_phase": "hold",
+      "conditions_per_split": 44,
+      "factorial_rule": "Each split independently contains all 11 finger sets x 4 commanded ROM levels = 44 sustained activation conditions.",
+      "finger_sets": [
+        "thumb",
+        "index",
+        "middle",
+        "ring",
+        "little",
+        "index+middle",
+        "ring+little",
+        "thumb+index",
+        "thumb+middle",
+        "thumb+index+middle",
+        "thumb+index+middle+ring+little"
+      ],
+      "planned_effective_seconds": 1056,
+      "rom_targets_percent": [
+        20,
+        50,
+        80,
+        100
+      ],
+      "seconds_per_trial": 8,
+      "trial_count": 132,
+      "trials_per_condition_per_split": 1
+    },
+    "closed_loop_hard_mining": {
+      "enable_condition": "only after the first personalized model is frozen",
+      "enabled_initially": false,
+      "independent_assignments": {
+        "sealed_test": null,
+        "train": {
+          "capture_date": "date-train-hard (after initial model freeze)",
+          "donning_id": "donning-04",
+          "session_id_prefix": "personal-train-hard-",
+          "trial_count": 10
+        },
+        "validation": {
+          "capture_date": "date-validation-hard (different later date)",
+          "donning_id": "donning-05",
+          "session_id_prefix": "personal-validation-hard-",
+          "trial_count": 10
+        }
+      },
+      "leakage_rule": "Hard-mined samples use new post-freeze dates/sessions/donnings and may enter train/validation only. Sealed-test data, predictions, errors, labels, and metadata remain permanently unavailable to mining, selection, relabeling, tuning, and retraining.",
+      "minimum_required_seconds": 600,
+      "planned_effective_seconds": 600,
+      "seconds_per_trial": 30,
+      "split_trial_counts": {
+        "sealed_test": 0,
+        "train": 10,
+        "validation": 10
+      },
+      "trial_count": 20
+    },
+    "free_continuous": {
+      "instruction": "randomize fingers, cadence, amplitude, and order; do not repeat a script",
+      "minimum_required_seconds": 600,
+      "planned_effective_seconds": 600,
+      "seconds_per_trial": 100,
+      "trial_count": 6,
+      "trials_per_split": 2
+    },
+    "rest_no_action": {
+      "labels": [
+        "rest",
+        "no_action"
+      ],
+      "planned_effective_seconds": 240,
+      "purpose": "negative evidence for false-activation suppression",
+      "seconds_per_trial": 20,
+      "trial_count": 12,
+      "trials_per_split": 4
+    },
+    "robustness": {
+      "factorial_rule": "Within each split/donning: 3 forearm poses x rested/fatigued x 11 finger sets at commanded normal 0.5 Hz and 50% ROM.",
+      "fatigue_pairing": "record rested and fatigued trials for every matched condition",
+      "fatigue_states": [
+        "rested",
+        "fatigued"
+      ],
+      "forearm_poses": [
+        "neutral",
+        "pronated",
+        "supinated"
+      ],
+      "planned_effective_seconds": 2376,
+      "seconds_per_trial": 12,
+      "trial_count": 198,
+      "trials_per_split": 66
+    },
+    "structured_trajectory": {
+      "commanded_phase_sequence": [
+        "flexion",
+        "extension"
+      ],
+      "conditions_per_split": 132,
+      "factorial_rule": "Each split independently contains all 11 finger sets x 3 commanded speeds x 4 commanded ROM levels = 132 conditions.",
+      "finger_sets": [
+        "thumb",
+        "index",
+        "middle",
+        "ring",
+        "little",
+        "index+middle",
+        "ring+little",
+        "thumb+index",
+        "thumb+middle",
+        "thumb+index+middle",
+        "thumb+index+middle+ring+little"
+      ],
+      "minimum_required_seconds": 1200,
+      "planned_effective_seconds": 4752,
+      "rom_targets_percent": [
+        20,
+        50,
+        80,
+        100
+      ],
+      "seconds_per_trial": 12,
+      "speed_definition": "complete flexion-extension cycles per second",
+      "speed_targets_hz": {
+        "fast": 1.0,
+        "normal": 0.5,
+        "slow": 0.25
+      },
+      "trial_count": 396,
+      "trials_per_condition_per_split": 1
+    },
+    "transition": {
+      "evaluation_rule": "Transition is a positive class for commanded/measured phase classification and phase metrics. Its eight trials per split remain isolated inside that split's base date/session/donning and earn zero duration quota credit.",
+      "label": "transition",
+      "planned_recorded_seconds": 240,
+      "purpose": "safe state changes without inflating action quotas",
+      "quota_credit_seconds": 0,
+      "seconds_per_trial": 10,
+      "split_trial_counts": {
+        "sealed_test": 8,
+        "train": 8,
+        "validation": 8
+      },
+      "trial_count": 24
+    }
+  },
+  "execution_order": [
+    "verify stage-0 canonical provenance and quality gate",
+    "assign immutable date/session/donning split groups",
+    "collect complete trajectory, hold, negative, free, and robustness coverage per split",
+    "seal test before first model fitting",
+    "apply pre-fit regression truth gates using train/validation only",
+    "train the first personalized model using train and validation only",
+    "freeze it, then collect independent donning-04/05 hard examples into train/validation only",
+    "freeze the final model and analysis code",
+    "unseal test once, validate its truth independently, and evaluate without feedback"
+  ],
+  "fatigue_protocol": {
+    "fatigued_target": "RPE 6-7/10 after repeated contractions; if MVC is available, record its decline and target 15-30%. This is an engineering protocol, not medical advice.",
+    "hard_limits": {
+      "continuous_active_work_seconds_max": 120,
+      "induction_duration_seconds_max": 300,
+      "induction_repetitions_max": 60,
+      "mandatory_recovery_seconds": 300,
+      "mvc_recheck_every_repetitions_if_used": 20,
+      "rpe_recheck_every_repetitions": 10,
+      "rpe_recheck_every_seconds": 60
+    },
+    "recovery_rule": "After mandatory recovery, resume only when RPE <= 2/10 and symptoms are absent. If recovery check fails, terminate fatigue collection for that day.",
+    "required_fields": [
+      "rpe_before",
+      "rpe_during_checks",
+      "rpe_after",
+      "fatigue_induction_repetitions",
+      "fatigue_induction_seconds",
+      "mvc_decline_percent_if_available",
+      "recovery_check_passed"
+    ],
+    "rested_definition": "RPE <= 2/10 after at least 5 minutes without contraction",
+    "safety_stop": "Stop immediately for pain, numbness, cramp, dizziness, abnormal weakness, RPE >= 8/10, participant request, or any hard limit. Never force ROM."
+  },
+  "regression_truth_gate": {
+    "allowed_external_sources": [
+      "camera",
+      "data_glove",
+      "encoder"
+    ],
+    "capture_qc_boundary": {
+      "allowed_before_test_unseal": [
+        "file hash and schema",
+        "channel count",
+        "packet and timestamp integrity",
+        "loss/duplicate/out-of-order/stale counters",
+        "sample-rate evidence",
+        "duration",
+        "device/electrode quality flags"
+      ],
+      "forbidden_before_test_unseal": [
+        "test action labels",
+        "test measured phase",
+        "test measured ROM",
+        "test measured speed",
+        "test predictions",
+        "test errors"
+      ],
+      "rule": "Model-independent capture QC may verify transport and file integrity only; it must not decrypt, inspect, summarize, or select using test targets."
+    },
+    "classification_fallback": "If neither regression head passes, train/evaluate classification only. Commanded targets never substitute for measured targets.",
+    "common_calibration": {
+      "calibration_record_required": true,
+      "required_each_session_and_after_each_redonning": true
+    },
+    "common_synchronization": {
+      "absolute_error_ms_max": 50,
+      "clock_alignment_evidence_required": true,
+      "p95_absolute_error_ms_max": 20
+    },
+    "fail_closed": true,
+    "pre_fit_decision": {
+      "decision_time": "before fitting any regression head",
+      "forbidden_split": "sealed_test",
+      "readable_splits": [
+        "train",
+        "validation"
+      ],
+      "rule": "Head eligibility is decided only from train/validation truth. Test labels, truth, predictions, and errors remain sealed and cannot influence fitting."
+    },
+    "rom_head": {
+      "calibration_error_percentage_points_max": 5,
+      "failure_effect": "disable ROM regression head and all ROM regression metrics",
+      "required_factor_axes": [
+        "split",
+        "finger_set",
+        "rom",
+        "measured_phase"
+      ],
+      "valid_synchronized_truth_fraction_per_trial_min": 0.95,
+      "valid_truth_fraction_each_train_validation_finger_rom_phase_cell_min": 0.9
+    },
+    "sealed_test_truth_evaluation": {
+      "access_time": "once, after final model and analysis code are frozen",
+      "failure_effect": "Mark the affected test regression result invalid and publish no metric for that head. Do not feed the failure, labels, truth, predictions, or errors back into collection, feature design, fitting, tuning, or retraining.",
+      "independent_gate": "Apply the same common, ROM-head, and speed-head truth thresholds to sealed test without refitting."
+    },
+    "speed_head": {
+      "calibration_absolute_error_hz_max": 0.05,
+      "calibration_relative_error_fraction_max": 0.1,
+      "failure_effect": "permanently disable speed regression for this model version and publish no speed regression metrics",
+      "required_factor_axes": [
+        "split",
+        "finger_set",
+        "speed",
+        "measured_phase"
+      ],
+      "valid_synchronized_truth_fraction_per_trial_min": 0.95,
+      "valid_truth_fraction_each_train_validation_finger_speed_phase_cell_min": 0.9
+    }
+  },
+  "schema": "emg.personalized.collection.plan",
+  "split_and_evaluation": {
+    "assignments": {
+      "sealed_test": {
+        "capture_date": "date-test (later untouched date)",
+        "closed_loop_hard_mining_trials": 0,
+        "donning_id": "donning-03",
+        "free_trials": 2,
+        "hold_trials": 44,
+        "rest_no_action_trials": 4,
+        "robustness_trials": 66,
+        "sealed": true,
+        "session_id_prefix": "personal-test-",
+        "structured_trajectory_trials": 132
+      },
+      "train": {
+        "capture_date": "date-train (unique date)",
+        "closed_loop_hard_mining_trials": 0,
+        "donning_id": "donning-01",
+        "free_trials": 2,
+        "hold_trials": 44,
+        "rest_no_action_trials": 4,
+        "robustness_trials": 66,
+        "sealed": false,
+        "session_id_prefix": "personal-train-",
+        "structured_trajectory_trials": 132
+      },
+      "validation": {
+        "capture_date": "date-validation (different date)",
+        "closed_loop_hard_mining_trials": 0,
+        "donning_id": "donning-02",
+        "free_trials": 2,
+        "hold_trials": 44,
+        "rest_no_action_trials": 4,
+        "robustness_trials": 66,
+        "sealed": false,
+        "session_id_prefix": "personal-validation-",
+        "structured_trajectory_trials": 132
+      }
+    },
+    "chronology": [
+      "collect base train on donning-01 and base validation on donning-02",
+      "collect base sealed test on donning-03; run target-blind capture QC then seal labels and truth",
+      "decide pre-fit heads from train/validation truth and freeze the initial model",
+      "collect train-hard on donning-04 and validation-hard on donning-05 on later independent dates",
+      "re-run train/validation truth gates, train/tune, and freeze the final model",
+      "unseal test once, independently validate test truth, and perform final evaluation"
+    ],
+    "cross_subject_claim_allowed": false,
+    "factor_coverage_rule": "Train, validation, and sealed test each independently cover all 132 trajectory conditions and all 44 hold conditions before any window extraction.",
+    "grouping_rule": "No recording, overlapping window, session, capture date, or donning_id may appear in multiple splits. Assign immutable groups before window extraction.",
+    "minimum_independent_donning_count": 5,
+    "sealed_test_rule": "Seal test before first model fitting; access it once for final evaluation. Never feed test-derived choices back into collection, training, or tuning.",
+    "unit": "date/session/donning-disjoint"
+  },
+  "stage_0_reference": {
+    "canonical_plan_sha256": "66d0c96263e2e00015700a66a2e1fc2b50f0b367a8b46eee157341f44144296f",
+    "canonical_subject_count": 10,
+    "labels": [
+      "rest",
+      "fist",
+      "open_hand"
+    ],
+    "not_sufficient_for": "continuous dexterous-hand teleoperation",
+    "purpose": "pipeline and coarse three-class engineering baseline only",
+    "quality_gate": "session_quality.training_usable must be true",
+    "schema": "emg.collection.plan",
+    "source_module": "collection_protocol.py",
+    "status": "retained_unchanged",
+    "training_provenance": "canonical_session",
+    "version": "1.0"
+  },
+  "subject_scope": {
+    "generalization_limit": "One subject cannot establish cross-subject generalization; report only within-subject unseen-date/session/donning results.",
+    "purpose": "personalized control for the recorded wearer",
+    "subject_count": 1
+  },
+  "target_model": {
+    "classification_outputs": [
+      "action family",
+      "finger set"
+    ],
+    "commanded_phases": [
+      "flexion",
+      "extension",
+      "hold",
+      "transition"
+    ],
+    "conditional_regression_outputs": [
+      "continuous ROM",
+      "optional speed"
+    ],
+    "measured_phases": [
+      "flexion",
+      "extension",
+      "hold",
+      "transition",
+      null
+    ],
+    "recommended": "multi_task_when_truth_gate_passes_otherwise_classification_only",
+    "trajectory_rule": "Trajectory trials repeat flexion-extension; sample-level commanded_phase is the cue, while measured_phase comes only from synchronized external truth."
+  },
+  "timing_and_quota": {
+    "quota_definition": "Only quality-gate-passing labeled signal earns quota credit. Countdowns, breaks, rejected frames, and transition samples are excluded. No recording segment may be credited to more than one block.",
+    "quota_trial_count": 764,
+    "total_accepted_recorded_minutes_including_transition": 164.4,
+    "total_accepted_recorded_seconds_including_transition": 9864,
+    "total_trial_count_including_transition": 788,
+    "transition_seconds_collected_not_credited": 240,
+    "transition_trial_count_not_credited": 24,
+    "unique_quota_effective_minutes": 160.4,
+    "unique_quota_effective_seconds": 9624
+  },
+  "version": "2.0"
+}

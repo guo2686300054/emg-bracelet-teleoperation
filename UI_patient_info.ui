@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry"><rect><x>0</x><y>0</y><width>460</width><height>360</height></rect></property>
+  <property name="windowTitle"><string>采集信息录入</string></property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="2"><widget class="QLabel" name="label_title"><property name="text"><string>本次采集信息</string></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
+   <item row="1" column="0"><widget class="QLabel" name="label_subject"><property name="text"><string>受试者标识</string></property></widget></item>
+   <item row="1" column="1"><widget class="QLineEdit" name="user_name"><property name="placeholderText"><string>仅用于生成匿名编号，不保存明文</string></property></widget></item>
+   <item row="2" column="0"><widget class="QLabel" name="label_side"><property name="text"><string>佩戴侧</string></property></widget></item>
+   <item row="2" column="1"><widget class="QComboBox" name="side"/></item>
+   <item row="3" column="0"><widget class="QLabel" name="label_action"><property name="text"><string>本次动作</string></property></widget></item>
+   <item row="3" column="1"><widget class="QComboBox" name="action"/></item>
+   <item row="4" column="0"><widget class="QLabel" name="label_experiment"><property name="text"><string>实验编号</string></property></widget></item>
+   <item row="4" column="1"><widget class="QLineEdit" name="experiment_id"/></item>
+   <item row="5" column="0"><widget class="QLabel" name="label_time"><property name="text"><string>录入时间</string></property></widget></item>
+   <item row="5" column="1"><widget class="QDateTimeEdit" name="collect_time"><property name="readOnly"><bool>true</bool></property></widget></item>
+   <item row="6" column="0" colspan="2"><widget class="QPushButton" name="save"><property name="text"><string>确定</string></property></widget></item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections><connection><sender>save</sender><signal>clicked()</signal><receiver>Dialog</receiver><slot>save_click()</slot><hints/></connection></connections>
+ <slots><slot>save_click()</slot></slots>
+</ui>

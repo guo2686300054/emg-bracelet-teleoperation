@@ -1,0 +1,197 @@
+{
+  "deployment_gate_passed": false,
+  "deployment_status": "engineering_only",
+  "evaluation": {
+    "labels": [
+      "rest",
+      "fist",
+      "open_hand"
+    ],
+    "schema": "emg.training.evaluation",
+    "splits": {
+      "test": {
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "confusion_matrix": [
+          [
+            97,
+            0,
+            0
+          ],
+          [
+            0,
+            97,
+            0
+          ],
+          [
+            0,
+            0,
+            97
+          ]
+        ],
+        "error_count": 0,
+        "error_windows": [],
+        "macro_f1": 1.0,
+        "per_class": {
+          "fist": {
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 97
+          },
+          "open_hand": {
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 97
+          },
+          "rest": {
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 97
+          }
+        },
+        "window_count": 291
+      },
+      "train": {
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "confusion_matrix": [
+          [
+            97,
+            0,
+            0
+          ],
+          [
+            0,
+            97,
+            0
+          ],
+          [
+            0,
+            0,
+            97
+          ]
+        ],
+        "error_count": 0,
+        "error_windows": [],
+        "macro_f1": 1.0,
+        "per_class": {
+          "fist": {
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 97
+          },
+          "open_hand": {
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 97
+          },
+          "rest": {
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 97
+          }
+        },
+        "window_count": 291
+      },
+      "validation": {
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "confusion_matrix": [
+          [
+            97,
+            0,
+            0
+          ],
+          [
+            0,
+            97,
+            0
+          ],
+          [
+            0,
+            0,
+            97
+          ]
+        ],
+        "error_count": 0,
+        "error_windows": [],
+        "macro_f1": 1.0,
+        "per_class": {
+          "fist": {
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 97
+          },
+          "open_hand": {
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 97
+          },
+          "rest": {
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 97
+          }
+        },
+        "window_count": 291
+      }
+    },
+    "validation_role": "informational_no_hyperparameter_tuning",
+    "version": "1.1"
+  },
+  "labels": [
+    "rest",
+    "fist",
+    "open_hand"
+  ],
+  "latency_benchmark": {
+    "bundle_id": "emg-lda-0babc8a27f716bb81e1fc387",
+    "environment": {
+      "implementation": "CPython",
+      "numpy": "2.2.6",
+      "platform": "Windows-10-10.0.26200-SP0",
+      "python": "3.10.11"
+    },
+    "inference_compute_latency_budget_passed": true,
+    "inference_compute_p99_limit_ns": 50000000,
+    "latency_ns": {
+      "feature": {
+        "p50": 40200.0,
+        "p95": 74009.99999999999,
+        "p99": 88810.99999999999
+      },
+      "prediction": {
+        "p50": 12200.0,
+        "p95": 22500.0,
+        "p99": 28902.0
+      },
+      "total": {
+        "p50": 52400.0,
+        "p95": 97305.0,
+        "p99": 115509.99999999999
+      }
+    },
+    "measured_count": 2000,
+    "schema": "emg.inference_latency",
+    "seed": 20260920,
+    "step_samples": 10,
+    "version": "1.1",
+    "warmup_count": 100,
+    "window_samples": 40
+  },
+  "live_control_eligibility": "not_evaluated",
+  "provenance": "synthetic_test",
+  "real_accuracy_claim_allowed": false,
+  "schema": "emg.engineering_baseline.report",
+  "version": "1.0",
+  "warning": "Synthetic engineering validation only. Accuracy and latency from this run do not represent real-user, real-device, or dexterous-hand control performance."
+}

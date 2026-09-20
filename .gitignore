@@ -1,0 +1,54 @@
+# Python caches and test output
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# IDE and local orchestration state
+.idea/
+.vscode/
+.omx/
+
+# Build and packaged applications
+build/
+dist/
+*.egg-info/
+
+# Local configuration and credentials
+config.ini
+.env
+.env.*
+!.env.example
+.emg_identity/
+*.key
+*.pem
+*.pfx
+*.p12
+
+# Local recordings, identity-bearing data, and logs
+data/
+user_data/
+patient_data/
+logs/
+*.log
+*.jsonl
+
+# Runtime shared-memory and lock files
+emg_shared_data*.bin
+emg_training_shared_data*.bin
+emg_replay_shared_data*.bin
+*.lock
+
+# Historical/real-data derived artifacts are intentionally local only
+artifacts/history_audit/
+artifacts/history_conversion/
+artifacts/leader_validation/
+
+# OS-generated files
+Thumbs.db
+Desktop.ini
+.DS_Store
+

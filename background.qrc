@@ -1,0 +1,30 @@
+<RCC>
+  <qresource prefix="bg">
+    <file>my_pictures/background/background.jpeg</file>
+    <file>my_pictures/background/model_application.jpg</file>
+    <file>my_pictures/background/data_collection.jpg</file>
+    <file>my_pictures/background/hand.jpg</file>
+  </qresource>
+  <qresource prefix="icon">
+    <file>my_pictures/pose_icon/eight.JPG</file>
+    <file>my_pictures/pose_icon/fist.JPG</file>
+    <file>my_pictures/pose_icon/five.JPG</file>
+    <file>my_pictures/pose_icon/four.JPG</file>
+    <file>my_pictures/pose_icon/introflexion.JPG</file>
+    <file>my_pictures/pose_icon/love.JPG</file>
+    <file>my_pictures/pose_icon/nine.JPG</file>
+    <file>my_pictures/pose_icon/OK.JPG</file>
+    <file>my_pictures/pose_icon/one.JPG</file>
+    <file>my_pictures/pose_icon/open_hand.JPG</file>
+    <file>my_pictures/pose_icon/outreach.JPG</file>
+    <file>my_pictures/pose_icon/pinchForefinger.JPG</file>
+    <file>my_pictures/pose_icon/pinchLittlefinger.JPG</file>
+    <file>my_pictures/pose_icon/pinchMiddlefinger.JPG</file>
+    <file>my_pictures/pose_icon/pinchRingfinger.JPG</file>
+    <file>my_pictures/pose_icon/rest.JPG</file>
+    <file>my_pictures/pose_icon/seven.JPG</file>
+    <file>my_pictures/pose_icon/six.JPG</file>
+    <file>my_pictures/pose_icon/three.JPG</file>
+    <file>my_pictures/pose_icon/two.JPG</file>
+  </qresource>
+</RCC>

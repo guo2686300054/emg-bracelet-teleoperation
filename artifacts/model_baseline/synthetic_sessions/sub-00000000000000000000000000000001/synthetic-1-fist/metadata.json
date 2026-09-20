@@ -1,0 +1,99 @@
+{
+  "acquisition": {
+    "adc_rate": {
+      "confirmed": false,
+      "evidence_ref": "unknown",
+      "source_kind": "unknown",
+      "value_hz": null
+    },
+    "device_output_rate": {
+      "confirmed": false,
+      "evidence_ref": "unknown",
+      "source_kind": "unknown",
+      "value_hz": null
+    },
+    "device_sequence_modulus": null,
+    "device_sequence_modulus_source": "unknown",
+    "device_tick_modulus": null,
+    "device_tick_modulus_source": "unknown",
+    "device_tick_rate": {
+      "confirmed": false,
+      "evidence_ref": "unknown",
+      "source_kind": "unknown",
+      "value_hz": null
+    },
+    "host_observed_rate": {
+      "confirmed": true,
+      "evidence_ref": "synthetic-demo-clock-v1",
+      "source_kind": "host_observed",
+      "value_hz": 200.0
+    },
+    "notification_packet_protocol": {
+      "evidence_ref": "unknown",
+      "logical_packet_size": 16,
+      "mode": "logical16_odd_bytes_v1",
+      "padding_rule": "none",
+      "wire_packet_size": 16
+    },
+    "sample_rate": {
+      "confirmed": true,
+      "evidence_ref": "synthetic-demo-contract-v1",
+      "source_kind": "protocol",
+      "value_hz": 200.0
+    },
+    "signal_chain": {
+      "adc_bit_width": null,
+      "filter": "unknown",
+      "normalization": "unknown",
+      "offset": "unknown",
+      "quantization": "unknown",
+      "rectification": "unknown",
+      "sample_format": "float32",
+      "scaling": "unknown",
+      "unit": "unknown"
+    }
+  },
+  "channels": 8,
+  "closed_at": "2026-09-20T06:31:02.887907+00:00",
+  "connection_generation_semantics": "ble_connection_lifecycle_generation",
+  "created_at": "2026-09-20T06:31:02.833715+00:00",
+  "csv_file": "samples.csv",
+  "device_id": "dev-0123456789abcdef0123456789abcdef",
+  "extra": {
+    "action_label": "fist",
+    "action_phase": "hold",
+    "experiment_id": "synthetic_engineering_demo_v1"
+  },
+  "hand_side": "left",
+  "last_persisted_row": 1000,
+  "recorder_state": "CLOSED",
+  "resource_state": "CLOSED",
+  "row_count": 1000,
+  "sample_rate_hz": 200.0,
+  "sample_rate_semantics": "sample_time_base_only",
+  "schema_id": "emg.session.metadata",
+  "schema_major": 1,
+  "schema_minor": 8,
+  "session_boundary": {
+    "eligible_count": 1000,
+    "end_host_receive_index": 1000,
+    "host_monotonic_tie_count": 0,
+    "incomplete_reason": null,
+    "queue_drop_session": 0,
+    "queue_drop_total": 0,
+    "received_count": 1000,
+    "start_host_receive_index": 0,
+    "tail_loss_count": 0,
+    "tail_pending_count": 0,
+    "written_count": 1000
+  },
+  "session_id": "synthetic-1-fist",
+  "status": "complete",
+  "subject_id": "sub-00000000000000000000000000000001",
+  "training_provenance": {
+    "kind": "synthetic_test",
+    "schema": "emg.training.provenance",
+    "version": "1.0"
+  },
+  "writer_generation_semantics": "producer_instance_generation"
+}

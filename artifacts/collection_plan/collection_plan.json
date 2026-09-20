@@ -1,0 +1,85 @@
+{
+  "acceptance": {
+    "action_phase": "hold",
+    "provenance": "canonical_session",
+    "quality_gate": "session_quality.training_usable must be true",
+    "required_labels": [
+      "rest",
+      "fist",
+      "open_hand"
+    ],
+    "split_rule": "subject-disjoint train/validation/test"
+  },
+  "actions": {
+    "fist": {
+      "hold_seconds_per_recording": 5,
+      "hold_seconds_per_subject_total": 150,
+      "recordings_per_subject_total": 30,
+      "recordings_per_visit": 10,
+      "visits_per_subject": 3
+    },
+    "open_hand": {
+      "hold_seconds_per_recording": 5,
+      "hold_seconds_per_subject_total": 150,
+      "recordings_per_subject_total": 30,
+      "recordings_per_visit": 10,
+      "visits_per_subject": 3
+    },
+    "rest": {
+      "hold_seconds_per_recording": 5,
+      "hold_seconds_per_subject_total": 150,
+      "recordings_per_subject_total": 30,
+      "recordings_per_visit": 10,
+      "visits_per_subject": 3
+    }
+  },
+  "deployment_decision_allowed": false,
+  "gui_recording_unit": "one training-capture GUI recording/session_id equals one fixed-action trial",
+  "identifier_templates": {
+    "experiment_batch": "exp-YYYYMMDD-protocol-v1",
+    "session_id": "{subject_id}_{visit_id}_{action_label}_trial-{trial_number:02d}",
+    "visit_id": "visit-01 through visit-03"
+  },
+  "known_blockers": [
+    "real sample rate is not yet confirmed",
+    "real BLE loss/duplicate/out-of-order rates are not yet measured",
+    "electrode wearing repeatability is not yet validated",
+    "the historical experimental sessions are explicitly training_usable=false"
+  ],
+  "learning_curve_update": {
+    "checkpoints_recordings_per_action": [
+      5,
+      10,
+      20,
+      30
+    ],
+    "checkpoints_subjects": [
+      3,
+      5,
+      8,
+      10
+    ],
+    "metric": "subject-disjoint validation macro_f1 with per-class recall",
+    "required_after_hardware_returns": true,
+    "stop_or_expand_rule": "Freeze the final quantity only after the last two checkpoints improve macro_f1 by less than 0.02 and every class recall is at least 0.85; otherwise add subjects before adding more correlated windows from the same session."
+  },
+  "missed_or_rejected_recording_rule": "Never overwrite or relabel a failed trial. Retain it as rejected evidence, then record a new session_id with suffix _retry-01 (increment for further retries) until ten quality-gate-passing recordings exist for that action in that visit.",
+  "randomization": "counterbalance action trial order within each visit",
+  "rationale": [
+    "Multiple sessions expose re-donning and day-to-day electrode variation.",
+    "Five-second recordings provide many 200 ms windows without making one trial excessively long.",
+    "Ten recordings per action/visit distribute evidence across repeated contractions instead of one correlated recording.",
+    "Ten subjects are a practical engineering starting point, not a population-level validation claim."
+  ],
+  "recordings_per_subject_total": 90,
+  "rest_intervals": {
+    "between_action_blocks_seconds": 60,
+    "between_recordings_seconds": 10,
+    "instruction": "extend rest when fatigue or unstable baseline is observed"
+  },
+  "schema": "emg.collection.plan",
+  "status": "provisional_pending_hardware_learning_curve",
+  "subject_count": 10,
+  "version": "1.0",
+  "visit_definition": "one independent donning; prefer different days"
+}

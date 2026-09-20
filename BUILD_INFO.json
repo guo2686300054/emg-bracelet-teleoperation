@@ -1,0 +1,60 @@
+{
+  "build_utc": "2026-09-08T08:33:06.908483+00:00",
+  "release_utc": "2026-09-08T09:03:17.250543+00:00",
+  "release_status": "release_approved",
+  "source_path": "D:\\桌面\\肌电手环_源码版\\肌电手环_源码版",
+  "source_bundle_sha256": "2f33cfcd9283d1dea6f52daca0e9ed1a5e6a7b6af5488ba8bbacdecb6af68b8f",
+  "source_bundle_file_count": 21,
+  "artifact": "qt5_bleak_v2.exe",
+  "artifact_size_bytes": 145543861,
+  "artifact_sha256": "47a8584609609424d71a6eaeb55bcd978d887db43154baecef7065feb45cfd8e",
+  "python_version": "3.10.11",
+  "pyinstaller_version": "6.14.2",
+  "app_config_version": "1.4",
+  "data_schema_version": "1.7",
+  "shared_memory_protocol_version": "2.1",
+  "ble_notification_protocol": {
+    "mode": "wire28_logical16_zero_suffix_v1",
+    "wire_packet_size": 28,
+    "logical_packet_size": 16,
+    "padding_rule": "zero_suffix",
+    "evidence_ref": "emg-live-probe-20260907:e2304cb8bf77e5865cd61045904476fcfeaba23b33d652e3a56d3e681d684839"
+  },
+  "included_features": [
+    "stop_generation_aba_guard",
+    "bounded_ble_stop_stages",
+    "recorder_watermarks_start_exclusive_end_inclusive",
+    "recorder_stop_token_retry",
+    "session_sample_index_zero_based_contiguous",
+    "metadata_tail_drop_loss_audit",
+    "host_monotonic_nondecreasing",
+    "host_monotonic_tie_count",
+    "schema_1_6_migration",
+    "stream_expected_watchdog",
+    "watchdog_generation_aba_guard",
+    "watchdog_arm_baseline_monotonic"
+  ],
+  "review": {
+    "code_review": "APPROVE",
+    "architecture": "CLEAR"
+  },
+  "hardware_validation": {
+    "csv_rows": 3478,
+    "host_monotonic_nondecreasing": true,
+    "host_monotonic_tie_count": 412,
+    "metadata_host_monotonic_tie_count": 412,
+    "tie_count_matches_metadata": true,
+    "queue_drop_session": 0,
+    "tail_pending_count": 0,
+    "tail_loss_count": 0,
+    "watchdog_false_stale_after_stop": 0,
+    "session_complete": true,
+    "shutdown_complete": true,
+    "identifiers_redacted": true
+  },
+  "verification": {
+    "pytest": "409 passed, 3 skipped, 177 subtests passed",
+    "deployment_contract": "4 passed, 2 subtests passed",
+    "windows_gui_smoke": "exit_code=0, no residual process, temporary deployment cleaned"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "schema": "emg_ble_protocol_evidence_summary_v1",
+  "evidence_id": "emg-live-probe-20260907",
+  "source_sha256": "e2304cb8bf77e5865cd61045904476fcfeaba23b33d652e3a56d3e681d684839",
+  "privacy": "No device name, address, HMAC identifier, or raw payload is retained.",
+  "notification_count": 511,
+  "wire_packet_size": 28,
+  "logical_packet_size": 16,
+  "zero_suffix_bytes": 12,
+  "zero_suffix_match_count": 511,
+  "first_host_monotonic_ns": 285472937000000,
+  "last_host_monotonic_ns": 285482906000000,
+  "host_observed_notification_rate_hz": 51.1585916340656,
+  "rate_semantics": "host_observed_notification_rate_only_not_adc_sampling_rate"
+}
